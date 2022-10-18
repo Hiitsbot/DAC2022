@@ -1,0 +1,52 @@
+#include<cstdio>
+#define TESTING
+
+class Money
+{
+        public:
+
+                Money(int rupees, int paise)
+                {
+                this->rupees = rupees + paise / 100;
+                this->paise = paise % 100;
+                #ifdef TESTING
+                puts("Money has been credited");
+                #endif
+                }
+        //copy constructor
+        Money(const Money& source)
+        {
+                rupees = source.rupees;
+                paise = source.paise;
+                #ifdef TESTING
+                puts("Money has been copy credited");
+                #endif
+
+        }
+        int Balance() const
+        {
+                return 100 *rupees + paise;
+
+        }
+        void Print() const
+        {
+                printf("%d.%d INR\n", rupees, paise);
+        }
+ Money operator+(const Money& rhs) const
+        {
+                return Money(rupees + rhs.rupees, paise + rhs.paise);
+        }
+
+        Money operator-(const Money& rhs) const
+        {
+                return Money(rupees - rhs.rupees, paise - rhs.paise);
+        }
+        ~Money()
+        {
+                #ifdef TESTING
+                puts("Money has been debited");
+                #endif
+        }
+private:
+        int rupees,paise;
+};
